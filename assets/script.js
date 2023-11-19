@@ -2,9 +2,9 @@ var searchBtnEl = document.getElementById('search-button');
 var searchInputEl = document.getElementById("search-input");
 var key = "87251923eddd66bd3c797f59bf9006ff"; //API key
 var todayweatherEl = document.getElementById("today");
-console.log(todayweatherEl);
+// console.log(todayweatherEl);
 var forecastweatherEl = document.getElementById("forecast");
-console.log(forecastweatherEl.getElementsByClassName("card-title"));
+// console.log(forecastweatherEl.getElementsByClassName("card-title"));
 var historyEl = document.getElementById("history");
 
 searchBtnEl.addEventListener('click',function(e){
@@ -19,11 +19,14 @@ searchBtnEl.addEventListener('click',function(e){
         console.log(dataGeo);
         var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
         
-        // Create button for search results in div history
+        // Create buttons for search results in div history
         var historyBtnEl = document.createElement('button');
+        var searchHistory = JSON.parse(window.localStorage.getItem(("searchHistory"))) || [];
         historyBtnEl.innerHTML = dataGeo[0].local_names.en;
         historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
         historyEl.appendChild(historyBtnEl);
+        searchHistory.push(dataGeo[0].local_names.en);
+        window.localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
 
         fetch(weatherApiURL)
         .then(function(response){
