@@ -11,3 +11,7 @@
 .input-group-append {
     margin: 5% 0;
 }
+
+.list-group button {
+    margin: 1% 0;
+}

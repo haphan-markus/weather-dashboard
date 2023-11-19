@@ -5,6 +5,7 @@ var todayweatherEl = document.getElementById("today");
 console.log(todayweatherEl);
 var forecastweatherEl = document.getElementById("forecast");
 console.log(forecastweatherEl.getElementsByClassName("card-title"));
+var historyEl = document.getElementById("history");
 
 searchBtnEl.addEventListener('click',function(e){
     e.preventDefault();
@@ -18,12 +19,18 @@ searchBtnEl.addEventListener('click',function(e){
         console.log(dataGeo);
         var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
         
+        // Create button for search results in div history
+        var historyBtnEl = document.createElement('button');
+        historyBtnEl.innerHTML = dataGeo[0].local_names.en;
+        historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
+        historyEl.appendChild(historyBtnEl);
+
         fetch(weatherApiURL)
         .then(function(response){
             return response.json();
         }).then(function(data){
             console.log(data);
-            todayweatherEl.getElementsByClassName("card-title")[0].innerHTML = dataGeo[0].local_names.en + " (" + dayjs().format("DD/MM/YYYY") + ")";
+            todayweatherEl.getElementsByClassName("card-title")[0].innerHTML = dataGeo[0].local_names.en + ", " + dataGeo[0].country + " (" + dayjs().format("DD/MM/YYYY") + ")";
             var todayweatherImg = document.createElement('img');
             todayweatherImg.src = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
             todayweatherEl.getElementsByClassName("card-title")[0].appendChild(todayweatherImg);
@@ -43,3 +50,4 @@ searchBtnEl.addEventListener('click',function(e){
         });
     });
 });
+
