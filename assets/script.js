@@ -7,6 +7,19 @@ var forecastweatherEl = document.getElementById("forecast");
 // console.log(forecastweatherEl.getElementsByClassName("card-title"));
 var historyEl = document.getElementById("history");
 
+if (JSON.parse(window.localStorage.getItem(("searchHistory"))) == null){
+    var searchHistory = [];
+    console.log(searchHistory);
+} else {
+    var searchHistory = JSON.parse(window.localStorage.getItem(("searchHistory")));
+    for (let i = 0; i < searchHistory.length;i++){
+        var historyBtnEl = document.createElement('button');
+        historyBtnEl.innerHTML = searchHistory[i];
+        historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
+        historyEl.appendChild(historyBtnEl);
+    }
+}
+
 searchBtnEl.addEventListener('click',function(e){
     e.preventDefault();
     var searchInputText = searchInputEl.value.trim();
@@ -20,8 +33,8 @@ searchBtnEl.addEventListener('click',function(e){
         var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
         
         // Create buttons for search results in div history
-        var historyBtnEl = document.createElement('button');
         var searchHistory = JSON.parse(window.localStorage.getItem(("searchHistory"))) || [];
+        var historyBtnEl = document.createElement('button');
         historyBtnEl.innerHTML = dataGeo[0].local_names.en;
         historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
         historyEl.appendChild(historyBtnEl);
