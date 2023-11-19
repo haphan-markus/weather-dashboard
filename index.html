@@ -25,17 +25,19 @@
         <form id="search-form" class="form">
           <div class="form-inline form-group">
             <div class="input-group">
-              <input class="form-input weather-search" type="text" id="search-input" placeholder="London"
+              <input class="form-input weather-search form-control" type="text" id="search-input" placeholder="London"
                 aria-labelledby="form-heading" aria-controls="today forecast" />
-              <div class="input-group-append">
-                <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
-                  Search
-                </button>
-                <hr class="hr weather-hr" />
-              </div>
+              
             </div>
           </div>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary search-button form-control" id="search-button" aria-label="submit search">
+              Search
+            </button>
+          </div>
         </form>
+        
+        <hr class="hr weather-hr" />
 
         <div class="list-group" id="history">
 
@@ -56,19 +58,8 @@
 
         <section id="forecast" class="row mt-3" role="region" aria-live="polite">
           <h4>5-Day Forecast:</h4>
-          <div id="day1" class="card mx-auto"  style="width: 10rem; border-radius: 0;">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-              <img class="weather-icon">
-              <p class="temperature"></p>
-              <p class="wind"></p>
-              <p class="humidity"></p>
-            </div>
-          </div>
-
-          <div id="day2" class="card mx-auto" style="width: 10rem; border-radius: 0;">
-            <div class="card-body">
+          <div id="day1" class="card mx-auto px-0"  style="width: 10rem; border-radius: 0;">
+            <div class="card-body pl-0">
               <h5 class="card-title">Card title</h5>
               <img class="weather-icon">
               <p class="temperature"></p>
@@ -77,8 +68,8 @@
             </div>
           </div>
 
-          <div id="day3" class="card mx-auto" style="width: 10rem; border-radius: 0;">
-            <div class="card-body">
+          <div id="day2" class="card mx-auto px-0" style="width: 10rem; border-radius: 0;">
+            <div class="card-body pl-0">
               <h5 class="card-title">Card title</h5>
               <img class="weather-icon">
               <p class="temperature"></p>
@@ -87,8 +78,8 @@
             </div>
           </div>
 
-          <div id="day4" class="card mx-auto" style="width: 10rem;border-radius: 0;">
-            <div class="card-body">
+          <div id="day3" class="card mx-auto px-0" style="width: 10rem; border-radius: 0;">
+            <div class="card-body pl-0">
               <h5 class="card-title">Card title</h5>
               <img class="weather-icon">
               <p class="temperature"></p>
@@ -97,8 +88,18 @@
             </div>
           </div>
 
-          <div id="day5" class="card mx-auto" style="width: 10rem;border-radius: 0;">
-            <div class="card-body">
+          <div id="day4" class="card mx-auto px-0" style="width: 10rem;border-radius: 0;">
+            <div class="card-body pl-0">
+              <h5 class="card-title">Card title</h5>
+              <img class="weather-icon">
+              <p class="temperature"></p>
+              <p class="wind"></p>
+              <p class="humidity"></p>
+            </div>
+          </div>
+
+          <div id="day5" class="card mx-auto px-0" style="width: 10rem;border-radius: 0;">
+            <div class="card-body pl-0">
               <h5 class="card-title">Card title</h5>
               <img class="weather-icon">
               <p class="temperature"></p>

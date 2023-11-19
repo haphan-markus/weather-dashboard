@@ -2,3 +2,12 @@
     border-style: solid;
     border-color: red;
 } */
+
+/* #forecast .card-body {
+    padding-left: 3%;
+    padding-right: 3%;
+} */
+
+.input-group-append {
+    margin: 5% 0;
+}
