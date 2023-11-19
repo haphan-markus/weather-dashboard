@@ -1,6 +1,6 @@
 var searchBtnEl = document.getElementById('search-button');
 var searchInputEl = document.getElementById("search-input");
-var key = "87251923eddd66bd3c797f59bf9006ff";
+var key = "87251923eddd66bd3c797f59bf9006ff"; //API key
 
 
 // console.log(searchBtnEl);
@@ -25,8 +25,8 @@ searchBtnEl.addEventListener('click',function(e){
         console.log(data);
         var latitude = data[0].lat;
         var longitude = data[0].lon;
-        console.log(latitude);
-        console.log(longitude);
+        // console.log(latitude);
+        // console.log(longitude);
 
         var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude+"&appid=" + key;
         
