@@ -32,8 +32,14 @@ searchBtnEl.addEventListener('click',function(e){
             todayweatherEl.getElementsByTagName("p")[0].innerHTML = "Temp: " + Math.round((data.list[0].main.temp - 273.15)*100)/100 + " degree C"; // Convert to Celcius degree
             todayweatherEl.getElementsByTagName("p")[1].innerHTML = "Wind: " + data.list[0].wind.speed + " KPH";
             todayweatherEl.getElementsByTagName("p")[2].innerHTML = "Humidity: " + data.list[0].main.humidity + "%";
-           
-            // forecastweatherEl.getElementsByClassName("card-title")[0].innerHTML;
+            // a for loop to present the day for the next 5 day
+            for (let i = 0; i < forecastweatherEl.getElementsByClassName("card-title").length;i++){
+                forecastweatherEl.getElementsByClassName("card-title")[i].innerHTML = dayjs().add(i+1,'day').format("DD/MM/YYYY");
+                forecastweatherEl.getElementsByClassName("weather-icon")[i].src = "http://openweathermap.org/img/w/" + data.list[i*8+7].weather[0].icon + ".png";
+                forecastweatherEl.getElementsByClassName("temperature")[i].innerHTML = "Temp: " + Math.round((data.list[i*8+7].main.temp - 273.15)*100)/100 + " degree C";
+                forecastweatherEl.getElementsByClassName("wind")[i].innerHTML = "Wind: " + data.list[i*8 + 7].wind.speed + " KPH";
+                forecastweatherEl.getElementsByClassName("humidity")[i].innerHTML = "Humidity: " + data.list[i*8+7].main.humidity + "%";
+            }
         });
     });
 });
