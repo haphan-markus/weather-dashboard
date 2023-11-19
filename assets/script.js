@@ -1,10 +1,11 @@
 var searchBtnEl = document.getElementById('search-button');
 var searchInputEl = document.getElementById("search-input");
+var key = "87251923eddd66bd3c797f59bf9006ff";
+
+
 // console.log(searchBtnEl);
 // console.log(searchInputEl);
 // var searchInputText = searchInputEl.value.trim();
-
-var key = "87251923eddd66bd3c797f59bf9006ff";
 
 searchBtnEl.addEventListener('click',function(e){
     e.preventDefault();
@@ -34,6 +35,13 @@ searchBtnEl.addEventListener('click',function(e){
             return response.json();
         }).then(function(data){
             console.log(data);
+
+            var tempToday = data.list[0].main.temp - 273.15; // Convert to Celcius degree
+            var windToday = data.list[0].wind.speed;
+            var humidityToday = data.list[0].main.humidity;
+            console.log(tempToday);
+            console.log(windToday);
+            console.log(humidityToday);
         });
     });
 });
