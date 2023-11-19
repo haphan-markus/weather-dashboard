@@ -22,6 +22,9 @@ if (JSON.parse(window.localStorage.getItem(("searchHistory"))) == null){
 
 searchBtnEl.addEventListener('click',function(e){
     e.preventDefault();
+    todayweatherEl.classList.remove("hide");
+    forecastweatherEl.classList.remove("hide");
+
     var searchInputText = searchInputEl.value.trim();
     var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchInputText + "&limit=5&appid=" + key;
 

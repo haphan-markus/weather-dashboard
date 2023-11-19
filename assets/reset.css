@@ -15,3 +15,7 @@
 .list-group button {
     margin: 1% 0;
 }
+
+.hide {
+    display: none;
+}
