@@ -26,16 +26,19 @@ searchBtnEl.addEventListener('click',function(e){
         var longitude = data[0].lon;
         console.log(latitude);
         console.log(longitude);
+
+        var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude+"&appid=" + key;
+        
+        fetch(weatherApiURL)
+        .then(function(response){
+            return response.json();
+        }).then(function(data){
+            console.log(data);
+        });
     });
 });
 
 
 
-// var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude+"&appid=" + key;
 
-// fetch(weatherApiURL)
-// .then(function(response){
-//     return response.json();
-// }).then(function(data){
-//     // console.log(data);
-// });
+
