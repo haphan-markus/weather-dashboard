@@ -6,17 +6,12 @@ var forecastweatherEl = document.getElementById("forecast");
 var historyEl = document.getElementById("history");
 var clearBtnEl = document.getElementById("clear-search-button");
 
-if (JSON.parse(window.localStorage.getItem(("searchHistory"))) == null){
-    var searchHistory = [];
-    console.log(searchHistory);
-} else {
-    var searchHistory = JSON.parse(window.localStorage.getItem(("searchHistory")));
-    for (let i = 0; i < searchHistory.length;i++){
-        var historyBtnEl = document.createElement('button');
-        historyBtnEl.innerHTML = searchHistory[i];
-        historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
-        historyEl.appendChild(historyBtnEl);
-    }
+var searchHistory = JSON.parse(window.localStorage.getItem(("searchHistory"))) || [];
+for (let i = 0; i < searchHistory.length;i++){
+    var historyBtnEl = document.createElement('button');
+    historyBtnEl.innerHTML = searchHistory[i];
+    historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
+    historyEl.appendChild(historyBtnEl);
 }
 
 searchBtnEl.addEventListener('click',function(e){
