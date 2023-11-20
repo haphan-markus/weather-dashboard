@@ -47,24 +47,9 @@ searchBtnEl.addEventListener('click',function(e){
         .then(function(response){
             return response.json();
         }).then(function(data){
-            console.log(data);
-            todayweatherEl.getElementsByClassName("card-title")[0].innerHTML = dataGeo[0].local_names.en + ", " + dataGeo[0].country + " (" + dayjs().format("DD/MM/YYYY") + ")";
-            var todayweatherImg = document.createElement('img');
-            todayweatherImg.src = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
-            todayweatherEl.getElementsByClassName("card-title")[0].appendChild(todayweatherImg);
+            presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
             
-            todayweatherEl.getElementsByTagName("p")[0].innerHTML = "Temp: " + Math.round((data.list[0].main.temp - 273.15)*100)/100 + " \u00B0C"; // Convert to Celcius degree
-            todayweatherEl.getElementsByTagName("p")[1].innerHTML = "Wind: " + data.list[0].wind.speed + " KPH";
-            todayweatherEl.getElementsByTagName("p")[2].innerHTML = "Humidity: " + data.list[0].main.humidity + "%";
-            
-            // a for loop to present the day for the next 5 day
-            for (let i = 0; i < forecastweatherEl.getElementsByClassName("card-title").length;i++){
-                forecastweatherEl.getElementsByClassName("card-title")[i].innerHTML = dayjs().add(i+1,'day').format("DD/MM/YYYY");
-                forecastweatherEl.getElementsByClassName("weather-icon")[i].src = "http://openweathermap.org/img/w/" + data.list[i*8+7].weather[0].icon + ".png";
-                forecastweatherEl.getElementsByClassName("temperature")[i].innerHTML = "Temp: " + Math.round((data.list[i*8+7].main.temp - 273.15)*100)/100 + " \u00B0C";
-                forecastweatherEl.getElementsByClassName("wind")[i].innerHTML = "Wind: " + data.list[i*8 + 7].wind.speed + " KPH";
-                forecastweatherEl.getElementsByClassName("humidity")[i].innerHTML = "Humidity: " + data.list[i*8+7].main.humidity + "%";
-            }
+            present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
         });
     });
 });
@@ -94,23 +79,31 @@ Array.from(historyEl.getElementsByTagName('button')).forEach(function(el){
             .then(function(response){
                 return response.json()
             }).then(function(data){
-                todayweatherEl.getElementsByClassName("card-title")[0].innerHTML = dataGeo[0].local_names.en + ", " + dataGeo[0].country + " (" + dayjs().format("DD/MM/YYYY") + ")";
-                var todayweatherImg = document.createElement('img');
-                todayweatherImg.src = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png";
-                todayweatherEl.getElementsByClassName("card-title")[0].appendChild(todayweatherImg);
-
-                todayweatherEl.getElementsByTagName("p")[0].innerHTML = "Temp: " + Math.round((data.list[0].main.temp - 273.15)*100)/100 + " \u00B0C"; // Convert to Celcius degree
-                todayweatherEl.getElementsByTagName("p")[1].innerHTML = "Wind: " + data.list[0].wind.speed + " KPH";
-                todayweatherEl.getElementsByTagName("p")[2].innerHTML = "Humidity: " + data.list[0].main.humidity + "%";
-
-                for (let i = 0; i < forecastweatherEl.getElementsByClassName("card-title").length;i++){
-                    forecastweatherEl.getElementsByClassName("card-title")[i].innerHTML = dayjs().add(i+1,'day').format("DD/MM/YYYY");
-                    forecastweatherEl.getElementsByClassName("weather-icon")[i].src = "http://openweathermap.org/img/w/" + data.list[i*8+7].weather[0].icon + ".png";
-                    forecastweatherEl.getElementsByClassName("temperature")[i].innerHTML = "Temp: " + Math.round((data.list[i*8+7].main.temp - 273.15)*100)/100 + " \u00B0C";
-                    forecastweatherEl.getElementsByClassName("wind")[i].innerHTML = "Wind: " + data.list[i*8 + 7].wind.speed + " KPH";
-                    forecastweatherEl.getElementsByClassName("humidity")[i].innerHTML = "Humidity: " + data.list[i*8+7].main.humidity + "%";
-                }
+                presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
+                
+                present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
             })
         })
     })
 })
+
+function presentTodayWeather(todayEl,geoApiData,apiData){
+    todayEl.getElementsByClassName("card-title")[0].innerHTML = geoApiData[0].local_names.en + ", " + geoApiData[0].country + " (" + dayjs().format("DD/MM/YYYY") + ")";
+    var todayweatherImg = document.createElement('img');
+    todayweatherImg.src = "http://openweathermap.org/img/w/" + apiData.list[0].weather[0].icon + ".png";
+    todayEl.getElementsByClassName("card-title")[0].appendChild(todayweatherImg);
+
+    todayEl.getElementsByTagName("p")[0].innerHTML = "Temp: " + Math.round((apiData.list[0].main.temp - 273.15)*100)/100 + " \u00B0C"; // Convert to Celcius degree
+    todayEl.getElementsByTagName("p")[1].innerHTML = "Wind: " + apiData.list[0].wind.speed + " KPH";
+    todayEl.getElementsByTagName("p")[2].innerHTML = "Humidity: " + apiData.list[0].main.humidity + "%";
+}
+
+function present5dayForecast(forecastEl,apiData) {
+    for (let i = 0; i < forecastEl.getElementsByClassName("card-title").length;i++){
+        forecastEl.getElementsByClassName("card-title")[i].innerHTML = dayjs().add(i+1,'day').format("DD/MM/YYYY");
+        forecastEl.getElementsByClassName("weather-icon")[i].src = "http://openweathermap.org/img/w/" + apiData.list[i*8+7].weather[0].icon + ".png";
+        forecastEl.getElementsByClassName("temperature")[i].innerHTML = "Temp: " + Math.round((apiData.list[i*8+7].main.temp - 273.15)*100)/100 + " \u00B0C";
+        forecastEl.getElementsByClassName("wind")[i].innerHTML = "Wind: " + apiData.list[i*8 + 7].wind.speed + " KPH";
+        forecastEl.getElementsByClassName("humidity")[i].innerHTML = "Humidity: " + apiData.list[i*8+7].main.humidity + "%";
+    }
+}
