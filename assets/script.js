@@ -12,6 +12,7 @@ for (let i = 0; i < searchHistory.length;i++){
     historyBtnEl.innerHTML = searchHistory[i];
     historyBtnEl.setAttribute('class','btn btn-secondary search-button form-control');
     historyEl.appendChild(historyBtnEl);
+    setHistorySearchButton(historyEl); // Call this function to all saved search results in localstorage after page refreshed
 }
 
 searchBtnEl.addEventListener('click',function(e){
@@ -45,38 +46,10 @@ searchBtnEl.addEventListener('click',function(e){
         window.localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
         historyEl.appendChild(historyBtnEl);
 
-        console.log("history div in the search button: " + historyEl);
-        // Try putting this part inside the addEventListener 
-        Array.from(historyEl.getElementsByTagName('button')).forEach(function(el){
-            el.addEventListener("click", function(btnEl){
-                console.log("history div in the history search button: " + historyEl);
-                btnEl.preventDefault();
-                todayweatherEl.classList.remove("hide");
-                forecastweatherEl.classList.remove("hide");
-        
-                var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + el.textContent + "&limit=5&appid=" + key;
-                fetch(geoApiURL)
-                .then(function(response){
-                    return response.json()
-                }).then(function(dataGeo){
-                    var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
-            
-                    fetch(weatherApiURL)
-                    .then(function(response){
-                        return response.json()
-                    }).then(function(data){
-                        presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
-                        present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
-                    })
-                })
-            })
-        })
+        setHistorySearchButton(historyEl); //Call this function to all buttons from NEW search result without page refresh
     });
+    return historyEl;
 });
-
-console.log("history div in the main body: " + historyEl);
-// Create event for the button in search history
-
 
 clearBtnEl.addEventListener("click",function(){
     window.localStorage.clear();
@@ -101,4 +74,30 @@ function present5dayForecast(forecastEl,apiData) {
         forecastEl.getElementsByClassName("wind")[i].innerHTML = "Wind: " + apiData.list[i*8 + 7].wind.speed + " KPH";
         forecastEl.getElementsByClassName("humidity")[i].innerHTML = "Humidity: " + apiData.list[i*8+7].main.humidity + "%";
     }
+}
+// Function to add AddEventListener to new buttons created from search history
+function setHistorySearchButton(historyEl){
+    Array.from(historyEl.getElementsByTagName('button')).forEach(function(el){
+        el.addEventListener("click", function(btnEl){
+            btnEl.preventDefault();
+            todayweatherEl.classList.remove("hide");
+            forecastweatherEl.classList.remove("hide");
+    
+            var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + el.textContent + "&limit=5&appid=" + key;
+            fetch(geoApiURL)
+            .then(function(response){
+                return response.json()
+            }).then(function(dataGeo){
+                var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
+        
+                fetch(weatherApiURL)
+                .then(function(response){
+                    return response.json()
+                }).then(function(data){
+                    presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
+                    present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
+                })
+            })
+        })
+    })
 }
