@@ -8,6 +8,10 @@
     padding-right: 3%;
 } */
 
+header {
+    background-image: linear-gradient(to bottom right, blue, purple);
+}
+
 .input-group-append {
     margin: 5% 0;
 }
@@ -19,3 +23,11 @@
 .hide {
     display: none;
 }
+
+#forecast .card {
+    width: 10rem;
+    border-radius: 0;
+    background-color: #20315A ;
+    color: white;
+}
+
