@@ -29,6 +29,14 @@ searchBtnEl.addEventListener('click',function(e){
         console.log(dataGeo);
         var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
         
+        fetch(weatherApiURL)
+        .then(function(response){
+            return response.json();
+        }).then(function(data){
+            presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
+            present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
+        });
+
         // Create buttons for search results in div "history"
         var historyBtnEl = document.createElement('button');
         historyBtnEl.innerHTML = dataGeo[0].local_names.en;
@@ -37,40 +45,38 @@ searchBtnEl.addEventListener('click',function(e){
         window.localStorage.setItem("searchHistory",JSON.stringify(searchHistory));
         historyEl.appendChild(historyBtnEl);
 
-        fetch(weatherApiURL)
-        .then(function(response){
-            return response.json();
-        }).then(function(data){
-            presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
-            present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
-        });
+        console.log("history div in the search button: " + historyEl);
+        // Try putting this part inside the addEventListener 
+        Array.from(historyEl.getElementsByTagName('button')).forEach(function(el){
+            el.addEventListener("click", function(btnEl){
+                console.log("history div in the history search button: " + historyEl);
+                btnEl.preventDefault();
+                todayweatherEl.classList.remove("hide");
+                forecastweatherEl.classList.remove("hide");
+        
+                var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + el.textContent + "&limit=5&appid=" + key;
+                fetch(geoApiURL)
+                .then(function(response){
+                    return response.json()
+                }).then(function(dataGeo){
+                    var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
+            
+                    fetch(weatherApiURL)
+                    .then(function(response){
+                        return response.json()
+                    }).then(function(data){
+                        presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
+                        present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
+                    })
+                })
+            })
+        })
     });
 });
 
+console.log("history div in the main body: " + historyEl);
 // Create event for the button in search history
-Array.from(historyEl.getElementsByTagName('button')).forEach(function(el){
-    el.addEventListener("click", function(btnEl){
-        btnEl.preventDefault();
-        todayweatherEl.classList.remove("hide");
-        forecastweatherEl.classList.remove("hide");
 
-        var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + el.textContent + "&limit=5&appid=" + key;
-        fetch(geoApiURL)
-        .then(function(response){
-            return response.json()
-        }).then(function(dataGeo){
-            var weatherApiURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + dataGeo[0].lat + "&lon=" + dataGeo[0].lon +"&appid=" + key;
-    
-            fetch(weatherApiURL)
-            .then(function(response){
-                return response.json()
-            }).then(function(data){
-                presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
-                present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
-            })
-        })
-    })
-})
 
 clearBtnEl.addEventListener("click",function(){
     window.localStorage.clear();
