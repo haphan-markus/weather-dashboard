@@ -41,7 +41,7 @@ All the searched locations are stored in the localstorage and new buttons for th
 
 ![Alt text](./assets/screenshots/image6.png)
 
-When the buttons for each destination is clicked, the weather information will be displayed:
+When the button of a destination is clicked, the weather information will be displayed:
 
 ![Alt text](./assets/screenshots/image7.png)
 

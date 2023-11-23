@@ -1,6 +1,6 @@
 var searchBtnEl = document.getElementById('search-button');
 var searchInputEl = document.getElementById("search-input");
-var key = "87251923eddd66bd3c797f59bf9006ff"; //API key
+var key = "0a15a1cb71c1664334fa6ef4000103a4"; //API key
 var todayweatherEl = document.getElementById("today");
 var forecastweatherEl = document.getElementById("forecast");
 var historyEl = document.getElementById("history");
