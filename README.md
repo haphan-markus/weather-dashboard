@@ -16,25 +16,30 @@ SO THAT I can plan a trip accordingly
 
 ## Usage
 
-The deployed website link:
+The deployed website link: https://haphan-markus.github.io/weather-dashboard/
 
 ## Visual
 
 The information about the temperature, wind, humidity and weather icon of the current day and the next 5 days of the search location are displayed on the interface:
 
 The first search "Ho Chi Minh City":
+
 ![Alt text](./assets/screenshots/image1.png)
 
 Search for London weather:
+
 ![Alt text](./assets/screenshots/image2.png)
 
 Search for New York:
+
 ![Alt text](./assets/screenshots/image3.png)
 
 Search for Sydney:
+
 ![Alt text](./assets/screenshots/image4.png)
 
 Search for Barcelona:
+
 ![Alt text](./assets/screenshots/image5.png)
 
 All the searched locations are stored in the localstorage and new buttons for those destinations are displayed on the side of the interface:
