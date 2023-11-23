@@ -20,7 +20,7 @@ searchBtnEl.addEventListener('click',function(e){
     forecastweatherEl.classList.remove("hide");
 
     var searchInputText = searchInputEl.value.trim();
-    var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchInputText + "&limit=5&appid=" + key;
+    var geoApiURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchInputText + "&limit=5&appid=" + key;
 
     fetch(geoApiURL)
     .then(function(response){
