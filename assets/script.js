@@ -59,7 +59,7 @@ historyEl.addEventListener('mouseover',function(){
             todayweatherEl.classList.remove("hide");
             forecastweatherEl.classList.remove("hide");
     
-            var geoApiURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + el.textContent + "&limit=5&appid=" + key;
+            var geoApiURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + el.textContent + "&limit=5&appid=" + key;
             fetch(geoApiURL)
             .then(function(response){
                 return response.json()
@@ -82,7 +82,7 @@ historyEl.addEventListener('mouseover',function(){
 function presentTodayWeather(todayEl,geoApiData,apiData){
     todayEl.getElementsByClassName("card-title")[0].innerHTML = geoApiData[0].local_names.en + ", " + geoApiData[0].country + " (" + dayjs().format("DD/MM/YYYY") + ")";
     var todayweatherImg = document.createElement('img');
-    todayweatherImg.src = "http://openweathermap.org/img/w/" + apiData.list[0].weather[0].icon + ".png";
+    todayweatherImg.src = "https://openweathermap.org/img/w/" + apiData.list[0].weather[0].icon + ".png";
     todayEl.getElementsByClassName("card-title")[0].appendChild(todayweatherImg);
 
     todayEl.getElementsByTagName("p")[0].innerHTML = "Temp: " + Math.round((apiData.list[0].main.temp - 273.15)*100)/100 + " \u00B0C"; // Convert to Celcius degree
@@ -93,7 +93,7 @@ function presentTodayWeather(todayEl,geoApiData,apiData){
 function present5dayForecast(forecastEl,apiData) {
     for (let i = 0; i < forecastEl.getElementsByClassName("card-title").length;i++){
         forecastEl.getElementsByClassName("card-title")[i].innerHTML = dayjs().add(i+1,'day').format("DD/MM/YYYY");
-        forecastEl.getElementsByClassName("weather-icon")[i].src = "http://openweathermap.org/img/w/" + apiData.list[i*8+7].weather[0].icon + ".png";
+        forecastEl.getElementsByClassName("weather-icon")[i].src = "https://openweathermap.org/img/w/" + apiData.list[i*8+7].weather[0].icon + ".png";
         forecastEl.getElementsByClassName("temperature")[i].innerHTML = "Temp: " + Math.round((apiData.list[i*8+7].main.temp - 273.15)*100)/100 + " \u00B0C";
         forecastEl.getElementsByClassName("wind")[i].innerHTML = "Wind: " + apiData.list[i*8 + 7].wind.speed + " KPH";
         forecastEl.getElementsByClassName("humidity")[i].innerHTML = "Humidity: " + apiData.list[i*8+7].main.humidity + "%";
