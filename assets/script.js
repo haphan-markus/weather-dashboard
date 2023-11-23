@@ -33,6 +33,7 @@ searchBtnEl.addEventListener('click',function(e){
         .then(function(response){
             return response.json();
         }).then(function(data){
+            console.log(data);
             presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
             present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
         });
@@ -69,6 +70,7 @@ historyEl.addEventListener('mouseover',function(){
                 .then(function(response){
                     return response.json()
                 }).then(function(data){
+                    console.log(data);
                     presentTodayWeather(todayweatherEl,dataGeo,data); // call function to present the weather for today
                     present5dayForecast(forecastweatherEl,data); // call function to present the forecast for the next 5 day
                 })
