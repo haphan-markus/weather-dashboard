@@ -2,7 +2,7 @@
 
 ## Description
 
-The weather dashboard allows the user to see the weather conditions of the current day and the forecase of next 5 days of the city they desire. The data presented in this website is provided by openweathermap API.
+The weather dashboard allows the user to see the weather conditions of the current day and the forecast of next 5 days of the city they desire. The data presented in this website is provided by openweathermap API.
 
 Upon entering the city name, the coordinates (latitude and longitude) will be automatically passed into the openweathermap API to pull the weather information.
 
